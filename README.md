@@ -1,3 +1,3 @@
 # tomorrow_plan
 
-A new Flutter application.
+明日の予定を管理するアプリ
