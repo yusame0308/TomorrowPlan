@@ -39,5 +39,6 @@ class TodoViewModel extends StateNotifier<TodoState> {
 
   void saveTodo(List<Todo> newList) {
     state = state.copyWith(todoList: newList);
+    //shared_preferencesに保存
   }
 }
