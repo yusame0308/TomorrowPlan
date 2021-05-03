@@ -9,7 +9,7 @@ class Todo {
       this.isDone = false,
       this.belong = Belong.None});
 
-  final int id; //一意のid
+  final String id; //一意のid
   final String title; //タイトル
   final int? time; //所要時間(nullable)
   final bool isDone; //完了したかどうか
