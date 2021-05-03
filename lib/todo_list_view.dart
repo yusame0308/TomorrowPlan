@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tomorrow_plan/main.dart';
 import 'package:tomorrow_plan/todo.dart';
+import 'package:tomorrow_plan/template_list_view.dart';
+import 'package:tomorrow_plan/upsert_todo_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+
+class Const {
+  static const routeNameTemplateList = 'template-list';
+  static const routeNameUpsertTodo = 'upsert-todo';
+}
 
 class TodoListView extends StatelessWidget {
   @override
@@ -11,6 +18,11 @@ class TodoListView extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.greenAccent),
       debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder>{
+        Const.routeNameTemplateList: (BuildContext context) =>
+            TemplateListView(),
+        Const.routeNameUpsertTodo: (BuildContext context) => UpsertTodoView(),
+      },
       home: TodoList(),
     );
   }
@@ -25,10 +37,27 @@ class TodoList extends HookWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: null,
+            onPressed: () {
+              context
+                  .read(todoViewModelProvider.notifier)
+                  .createTodo(title: 'test');
+            }, //Show TemplateListView
           ),
         ],
       ),
+      body: _buildList(),
+    );
+  }
+
+  Widget _buildList() {
+    final todoState = useProvider(todoViewModelProvider);
+    final _todoList = todoState.todoList;
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: _todoList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Text(_todoList[index].title);
+      },
     );
   }
 }
