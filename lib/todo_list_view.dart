@@ -56,7 +56,9 @@ class TodoList extends HookWidget {
       padding: const EdgeInsets.all(16),
       itemCount: _todoList.length,
       itemBuilder: (BuildContext context, int index) {
-        return Text(_todoList[index].title);
+        return ListTile(
+          title: _todoList[index].title,
+        );
       },
     );
   }
