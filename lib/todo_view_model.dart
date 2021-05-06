@@ -32,7 +32,7 @@ class TodoViewModel extends StateNotifier<TodoState> {
     saveTodo(newList);
   }
 
-  void deleteTodo(int id) {
+  void deleteTodo(String id) {
     final newList = state.todoList.where((todo) => todo.id != id).toList();
     saveTodo(newList);
   }
