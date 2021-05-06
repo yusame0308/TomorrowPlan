@@ -62,4 +62,23 @@ class TodoList extends HookWidget {
       },
     );
   }
+
+  Widget _dismissible(Todo todo, BuildContext context) {
+    return Dismissible(
+      key: UniqueKey(),
+      confirmDismiss: (direction) async {
+        //show delete dialog
+      },
+      onDismissed: (DismissDirection direction) {
+        context.read(todoViewModelProvider.notifier).deleteTodo(todo.id);
+        Fluttertoast.showToast(
+          msg: '${todo.title}を削除しました',
+          backgroundColor: Colors.grey,
+        );
+      },
+      child: ListTile(
+        title: Text(todo.title),
+      ),
+    );
+  }
 }
