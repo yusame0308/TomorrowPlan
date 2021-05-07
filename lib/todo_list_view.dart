@@ -40,25 +40,54 @@ class TodoList extends HookWidget {
             onPressed: () {
               context
                   .read(todoViewModelProvider.notifier)
-                  .createTodo(title: 'test');
+                  .createTodo(title: '絶対やること');
             }, //Show TemplateListView
           ),
         ],
       ),
-      body: _buildList(),
+      body: SafeArea(child: _buildLists()),
     );
   }
 
-  Widget _buildList() {
+  Widget _buildLists() {
     final todoState = useProvider(todoViewModelProvider);
     final _todoList = todoState.todoList;
+    final _sureTodoList =
+        _todoList.where((todo) => todo.belong == Belong.Sure).toList();
+    final _unsureTodoList =
+        _todoList.where((todo) => todo.belong == Belong.Unsure).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(10.0),
+          color: Colors.grey[300],
+          child: Text('絶対やる'),
+        ),
+        Expanded(
+          child: _listView(_sureTodoList),
+        ),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(10.0),
+          color: Colors.grey[300],
+          child: Text('できればやる'),
+        ),
+        Expanded(
+          child: _listView(_unsureTodoList),
+        ),
+      ],
+    );
+  }
+
+  Widget _listView(List<Todo> _todoList) {
     return ListView.builder(
-      padding: const EdgeInsets.all(16),
+      // padding: const EdgeInsets.all(16),
       itemCount: _todoList.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: _todoList[index].title,
-        );
+        return _dismissible(_todoList[index], context);
       },
     );
   }
@@ -76,6 +105,17 @@ class TodoList extends HookWidget {
           backgroundColor: Colors.grey,
         );
       },
+      background: Container(
+        alignment: Alignment.centerLeft,
+        color: Colors.red,
+        child: const Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+          child: Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
+        ),
+      ),
       child: ListTile(
         title: Text(todo.title),
       ),
