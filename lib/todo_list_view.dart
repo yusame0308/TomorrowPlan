@@ -37,10 +37,9 @@ class TodoList extends HookWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () async {
-              await Navigator.pushNamed(context, Const.routeNameTemplateList,
-                  arguments: null);
-            },
+            onPressed: () => _transitionToNextScreen(
+                context, Const.routeNameTemplateList,
+                todo: null),
           ),
         ],
       ),
@@ -119,5 +118,18 @@ class TodoList extends HookWidget {
         title: Text(todo.title),
       ),
     );
+  }
+
+  Future<void> _transitionToNextScreen(BuildContext context, String routeName,
+      {Todo? todo}) async {
+    final result =
+        await Navigator.pushNamed(context, routeName, arguments: todo);
+
+    if (result != null) {
+      await Fluttertoast.showToast(
+        msg: result.toString(),
+        backgroundColor: Colors.grey,
+      );
+    }
   }
 }
