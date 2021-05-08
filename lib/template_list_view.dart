@@ -24,13 +24,11 @@ class TemplateListView extends HookWidget {
         ],
       ),
       body: ListView.builder(
-        // padding: const EdgeInsets.all(16),
         itemCount: _todoList.length,
         itemBuilder: (BuildContext context, int index) {
           final _todo = _todoList[index];
           return Card(
             child: ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 18.0),
               title: Text(_todo.title),
               trailing: IconButton(
                 icon: Icon(Icons.add),
