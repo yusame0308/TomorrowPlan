@@ -37,11 +37,10 @@ class TodoList extends HookWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
-              context
-                  .read(todoViewModelProvider.notifier)
-                  .createTodo(title: '絶対やること');
-            }, //Show TemplateListView
+            onPressed: () async {
+              await Navigator.pushNamed(context, Const.routeNameTemplateList,
+                  arguments: null);
+            },
           ),
         ],
       ),
