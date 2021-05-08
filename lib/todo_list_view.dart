@@ -82,10 +82,11 @@ class TodoList extends HookWidget {
 
   Widget _listView(List<Todo> _todoList) {
     return ListView.builder(
-      // padding: const EdgeInsets.all(16),
       itemCount: _todoList.length,
       itemBuilder: (BuildContext context, int index) {
-        return _dismissible(_todoList[index], context);
+        return Card(
+          child: _dismissible(_todoList[index], context),
+        );
       },
     );
   }
