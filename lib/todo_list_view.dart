@@ -50,9 +50,8 @@ class TodoList extends HookWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () => transitionToNextScreen(
-                context, Const.routeNameTemplateList,
-                todo: null),
+            onPressed: () =>
+                transitionToNextScreen(context, Const.routeNameTemplateList),
           ),
         ],
       ),
@@ -133,6 +132,10 @@ class TodoList extends HookWidget {
       ),
       child: ListTile(
         title: Text(todo.title),
+        onTap: () {
+          transitionToNextScreen(context, Const.routeNameUpsertTodo,
+              todo: todo);
+        },
       ),
     );
   }

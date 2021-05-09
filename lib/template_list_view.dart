@@ -3,6 +3,7 @@ import 'package:tomorrow_plan/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tomorrow_plan/todo.dart';
+import 'package:tomorrow_plan/todo_list_view.dart';
 
 class TemplateListView extends HookWidget {
   @override
@@ -16,9 +17,7 @@ class TemplateListView extends HookWidget {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              context
-                  .read(todoViewModelProvider.notifier)
-                  .createTodo(title: 'やること');
+              transitionToNextScreen(context, Const.routeNameUpsertTodo);
             },
           ),
         ],
@@ -30,6 +29,10 @@ class TemplateListView extends HookWidget {
           return Card(
             child: ListTile(
               title: Text(_todo.title),
+              onTap: () {
+                transitionToNextScreen(context, Const.routeNameUpsertTodo,
+                    todo: _todo);
+              },
               trailing: IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () async {
