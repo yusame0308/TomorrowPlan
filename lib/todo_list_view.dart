@@ -12,6 +12,19 @@ class Const {
   static const routeNameUpsertTodo = 'upsert-todo';
 }
 
+Future<void> transitionToNextScreen(BuildContext context, String routeName,
+    {Todo? todo}) async {
+  final result = await Navigator.pushNamed(context, routeName, arguments: todo);
+
+  if (result != null) {
+    await Fluttertoast.showToast(
+      msg: result.toString(),
+      backgroundColor: Colors.grey,
+      timeInSecForIosWeb: 2,
+    );
+  }
+}
+
 class TodoListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,7 +50,7 @@ class TodoList extends HookWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () => _transitionToNextScreen(
+            onPressed: () => transitionToNextScreen(
                 context, Const.routeNameTemplateList,
                 todo: null),
           ),
@@ -122,20 +135,6 @@ class TodoList extends HookWidget {
         title: Text(todo.title),
       ),
     );
-  }
-
-  Future<void> _transitionToNextScreen(BuildContext context, String routeName,
-      {Todo? todo}) async {
-    final result =
-        await Navigator.pushNamed(context, routeName, arguments: todo);
-
-    if (result != null) {
-      await Fluttertoast.showToast(
-        msg: result.toString(),
-        backgroundColor: Colors.grey,
-        timeInSecForIosWeb: 2,
-      );
-    }
   }
 
   Future<bool> _showDeleteConfirmDialog(
