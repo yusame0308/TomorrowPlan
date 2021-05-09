@@ -112,7 +112,11 @@ class TodoList extends HookWidget {
         return confirmResult;
       },
       onDismissed: (DismissDirection direction) {
-        context.read(todoViewModelProvider.notifier).deleteTodo(todo.id);
+        context.read(todoViewModelProvider.notifier).updateTodo(
+            id: todo.id,
+            title: todo.title,
+            isDone: todo.isDone,
+            belong: Belong.None);
         Fluttertoast.showToast(
           msg: '${todo.title}を削除しました',
           backgroundColor: Colors.grey,
