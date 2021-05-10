@@ -27,6 +27,7 @@ class TemplateListView extends HookWidget {
         itemBuilder: (BuildContext context, int index) {
           final _todo = _todoList[index];
           return Card(
+            elevation: 2,
             child: ListTile(
               title: Text(_todo.title),
               onTap: () {

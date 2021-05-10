@@ -97,6 +97,7 @@ class TodoList extends HookWidget {
       itemCount: _todoList.length,
       itemBuilder: (BuildContext context, int index) {
         return Card(
+          elevation: 2,
           child: _dismissible(_todoList[index], context),
         );
       },
