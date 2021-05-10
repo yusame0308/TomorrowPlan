@@ -29,7 +29,9 @@ class TodoListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.greenAccent),
+      theme: ThemeData(
+          primaryColor: Colors.greenAccent,
+          appBarTheme: AppBarTheme(elevation: 0)),
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
         Const.routeNameTemplateList: (BuildContext context) =>
@@ -68,23 +70,12 @@ class TodoList extends HookWidget {
         _todoList.where((todo) => todo.belong == Belong.Unsure).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisSize: MainAxisSize.max,
       children: [
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(10.0),
-          color: Colors.grey[300],
-          child: Text('絶対やる'),
-        ),
+        SectionTitleCard('絶対やる'),
         Expanded(
           child: _listView(_sureTodoList),
         ),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(10.0),
-          color: Colors.grey[300],
-          child: Text('できればやる'),
-        ),
+        SectionTitleCard('できればやる'),
         Expanded(
           child: _listView(_unsureTodoList),
         ),
@@ -94,6 +85,7 @@ class TodoList extends HookWidget {
 
   Widget _listView(List<Todo> _todoList) {
     return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 6),
       itemCount: _todoList.length,
       itemBuilder: (BuildContext context, int index) {
         return Card(
@@ -167,5 +159,31 @@ class TodoList extends HookWidget {
       },
     );
     return result ?? false;
+  }
+}
+
+class SectionTitleCard extends StatelessWidget {
+  SectionTitleCard(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 36.0,
+      child: Card(
+        elevation: 5,
+        color: Colors.teal[300],
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
