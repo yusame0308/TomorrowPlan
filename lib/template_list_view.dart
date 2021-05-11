@@ -29,7 +29,26 @@ class TemplateListView extends HookWidget {
           return Card(
             elevation: 2,
             child: ListTile(
-              title: Text(_todo.title),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(_todo.title),
+                  SizedBox(height: 0),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.timer_sharp,
+                        size: 16,
+                        color: Colors.teal[300],
+                      ),
+                      Text(
+                        '20',
+                        style: TextStyle(color: Colors.teal[300]),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               onTap: () {
                 transitionToNextScreen(context, Const.routeNameUpsertTodo,
                     todo: _todo);
