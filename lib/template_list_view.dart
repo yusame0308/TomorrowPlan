@@ -33,7 +33,6 @@ class TemplateListView extends HookWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(_todo.title),
-                  SizedBox(height: 4),
                   Row(
                     children: [
                       Icon(

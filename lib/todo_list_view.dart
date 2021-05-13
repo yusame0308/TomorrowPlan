@@ -128,7 +128,28 @@ class TodoList extends HookWidget {
         ),
       ),
       child: ListTile(
-        title: Text(todo.title),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(todo.title),
+            Row(
+              children: [
+                Icon(
+                  Icons.timer_sharp,
+                  size: 14,
+                  color: Colors.teal[300],
+                ),
+                Text(
+                  '20',
+                  style: TextStyle(
+                    color: Colors.teal[300],
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
         onTap: () {
           transitionToNextScreen(context, Const.routeNameUpsertTodo,
               todo: todo);
