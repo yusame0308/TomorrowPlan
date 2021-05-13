@@ -154,6 +154,12 @@ class TodoList extends HookWidget {
           transitionToNextScreen(context, Const.routeNameUpsertTodo,
               todo: todo);
         },
+        trailing: Checkbox(
+          value: todo.isDone,
+          onChanged: (bool? newValue) {
+            ///copyWithを使ってisDoneを変える
+          },
+        ),
       ),
     );
   }
