@@ -58,21 +58,17 @@ class TodoForm extends StatelessWidget {
   }
 
   void _submission(BuildContext context, Todo? todo) {
-    print('submission');
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (todo != null) {
-        print('update');
         context.read(todoViewModelProvider.notifier).updateTodo(
             id: todo.id,
             title: _title,
             isDone: todo.isDone,
             belong: todo.belong);
       } else {
-        print('create');
         context.read(todoViewModelProvider.notifier).createTodo(title: _title);
       }
-      print('pop');
       Navigator.pop(context, '$_titleを${todo == null ? '作成' : '更新'}しました');
     }
   }
