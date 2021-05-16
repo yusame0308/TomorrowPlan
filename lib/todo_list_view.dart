@@ -100,9 +100,11 @@ class TodoList extends HookWidget {
     return Dismissible(
       key: UniqueKey(),
       confirmDismiss: (direction) async {
+        // if (direction == DismissDirection.endToStart) {
         final confirmResult =
             await _showDeleteConfirmDialog(todo.title, context);
         return confirmResult;
+        // }
       },
       onDismissed: (DismissDirection direction) {
         context.read(todoViewModelProvider.notifier).updateTodo(
@@ -117,10 +119,10 @@ class TodoList extends HookWidget {
         );
       },
       background: Container(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.centerRight,
         color: Colors.red,
         child: const Padding(
-          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+          padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
           child: Icon(
             Icons.delete,
             color: Colors.white,
