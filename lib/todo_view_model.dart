@@ -32,6 +32,14 @@ class TodoViewModel extends StateNotifier<TodoState> {
     saveTodo(newList);
   }
 
+  void updateBelong(Belong belong) {
+    ///copyWithでBelongを更新
+  }
+
+  void toggleIsDone() {
+    ///copyWithでisDoneをtoggle
+  }
+
   void deleteTodo(String id) {
     final newList = state.todoList.where((todo) => todo.id != id).toList();
     saveTodo(newList);
