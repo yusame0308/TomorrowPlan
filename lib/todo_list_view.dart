@@ -101,8 +101,8 @@ class TodoList extends HookWidget {
       key: UniqueKey(),
       confirmDismiss: (direction) async {
         // if (direction == DismissDirection.endToStart) {
-        final confirmResult =
-            await _showDeleteConfirmDialog(todo.title, context);
+        final confirmResult = await _showDeleteConfirmDialog(
+            '${todo.title}を明日の予定から削除しますか？', context);
         return confirmResult;
         // }
       },
@@ -165,30 +165,30 @@ class TodoList extends HookWidget {
       ),
     );
   }
+}
 
-  Future<bool> _showDeleteConfirmDialog(
-      String title, BuildContext context) async {
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('削除'),
-          content: Text('$titleを明日の予定から削除しますか？'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-    return result ?? false;
-  }
+Future<bool> _showDeleteConfirmDialog(
+    String contentText, BuildContext context) async {
+  final result = await showDialog<bool>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('削除'),
+        content: Text(contentText),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+  return result ?? false;
 }
 
 class SectionTitleCard extends StatelessWidget {
