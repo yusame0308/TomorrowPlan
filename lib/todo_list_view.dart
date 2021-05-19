@@ -101,7 +101,7 @@ class TodoList extends HookWidget {
       key: UniqueKey(),
       confirmDismiss: (direction) async {
         // if (direction == DismissDirection.endToStart) {
-        final confirmResult = await _showDeleteConfirmDialog(
+        final confirmResult = await showDeleteConfirmDialog(
             '${todo.title}を明日の予定から削除しますか？', context);
         return confirmResult;
         // }
@@ -167,7 +167,7 @@ class TodoList extends HookWidget {
   }
 }
 
-Future<bool> _showDeleteConfirmDialog(
+Future<bool> showDeleteConfirmDialog(
     String contentText, BuildContext context) async {
   final result = await showDialog<bool>(
     context: context,

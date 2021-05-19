@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tomorrow_plan/todo.dart';
 import 'package:tomorrow_plan/todo_list_view.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TemplateListView extends HookWidget {
   @override
@@ -30,6 +31,36 @@ class TemplateListView extends HookWidget {
             elevation: 2,
             child: Dismissible(
               key: UniqueKey(),
+              confirmDismiss: (direction) async {
+                // if (direction == DismissDirection.endToStart) {
+                final confirmResult = await showDeleteConfirmDialog(
+                    '${_todo.title}を明日の予定から削除しますか？', context);
+                return confirmResult;
+                // }
+              },
+              onDismissed: (DismissDirection direction) {
+                context.read(todoViewModelProvider.notifier).updateTodo(
+                    id: _todo.id,
+                    title: _todo.title,
+                    isDone: _todo.isDone,
+                    belong: Belong.None);
+                Fluttertoast.showToast(
+                  msg: '${_todo.title}を削除しました',
+                  backgroundColor: Colors.grey,
+                  timeInSecForIosWeb: 2,
+                );
+              },
+              background: Container(
+                alignment: Alignment.centerRight,
+                color: Colors.red,
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               child: ListTile(
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
